@@ -86,12 +86,17 @@ scope = [
     "https://www.googleapis.com/auth/spreadsheets"
 ]
 
+service_account_json = os.environ.get( 
+    "SERVICE_ACCOUNT_JSON" 
+) 
+
 service_account_info = json.loads( 
-    os.environ["SERVICE_ACCOUNT_JSON"] 
+    service_account_json 
 ) 
 
 creds = Credentials.from_service_account_info( 
-    service_account_info, scopes=scope 
+    service_account_info, 
+    scopes=scope 
 )
 
 client = gspread.authorize(creds)
