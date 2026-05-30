@@ -3,6 +3,8 @@ import cv2
 import numpy as np
 import requests
 import gspread
+import os 
+import json
 from google.oauth2.service_account import Credentials
 
 app = Flask(__name__)
@@ -84,9 +86,12 @@ scope = [
     "https://www.googleapis.com/auth/spreadsheets"
 ]
 
-creds = Credentials.from_service_account_file(
-    "service_account.json",
-    scopes=scope
+service_account_info = json.loads( 
+    os.environ["SERVICE_ACCOUNT_JSON"] 
+) 
+
+creds = Credentials.from_service_account_info( 
+    service_account_info, scopes=scope 
 )
 
 client = gspread.authorize(creds)
